@@ -5,7 +5,7 @@ public class Flipper : MonoBehaviour
 {
     private float direction = 0;
     public float speed;
-    private bool active = false;
+    //private bool active = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -18,7 +18,7 @@ public class Flipper : MonoBehaviour
     {
         transform.position += direction * transform.right * speed * Time.deltaTime;
     }
-    public void OnMoveClick()
+    /*public void OnMoveClick()
     {
         if (direction == 0)
         {
@@ -35,6 +35,7 @@ public class Flipper : MonoBehaviour
             active = false;
         }
     }
+    */
 }
 
 
