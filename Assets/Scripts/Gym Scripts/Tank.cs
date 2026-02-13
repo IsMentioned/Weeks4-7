@@ -10,6 +10,7 @@ public class Tank : MonoBehaviour
     Camera main;
     Vector3 aim;
     public Transform turretAim;
+    public GameObject bullet;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -34,10 +35,18 @@ public class Tank : MonoBehaviour
 
         transform.position = location;
         mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        Vector2 aim = mousePos - location;
+        Vector2 aim = mousePos - transform.position;
+        mousePos.z = 0;
 
         turretAim.up = aim;
 
+
+
+
+        if (Mouse.current.leftButton.wasReleasedThisFrame)
+        {
+            Instantiate(bullet, mousePos, Quaternion.identity);
+        }
         
     }
 
