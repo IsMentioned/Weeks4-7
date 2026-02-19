@@ -44,7 +44,7 @@ public class UI: MonoBehaviour
 
     public void Slider(float input)
     {
-        //The moving the slider adjusts the size of the pizza sprite (with an adjustment of 1.5 * the scale).
+        //Moving the slider adjusts the size of the pizza sprite (with an adjustment of 1.5 * the scale).
         sizeCoE = input + 1.5f;
         scale = new Vector3(sizeCoE,sizeCoE,1);
         pizzaScale.transform.localScale = scale;
@@ -54,7 +54,7 @@ public class UI: MonoBehaviour
     public void Sell()
     {
         //If the sell button is pressed when the pizza is complete (out of the oven),
-        //All major variables will reset and the dollar signs will appear.
+        //all major variables will reset and the dollar sign sprites' opacity will be set to 1.
         if (pizza.ovenComplete)
         {
             gameObject.SetActive(true);

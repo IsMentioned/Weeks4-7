@@ -48,8 +48,8 @@ public class Topping : MonoBehaviour
 //Logic for topping box selection:
 
         //Pepperoni box
-        //If a mouse clicks is on the box, pepperoni will be selected and other topipings will be unselected if pepperoni is currently not selected.
-        //If a mouse click is on the box, pepporini will be unselected if it is currently selected.
+        //If a mouse clicks is on the box, pepperoni will be selected and other toppings will be unselected if pepperoni is currently not selected.
+        //If a mouse click is on the box, pepporoni will be unselected if it is currently selected.
         if (peppBox.bounds.Contains(mousePos) && Mouse.current.leftButton.wasReleasedThisFrame && !uI.previewActive)
         {
             if (peppSelected == true)
@@ -65,7 +65,7 @@ public class Topping : MonoBehaviour
         }
 
         //Beef box
-        //If a mouse clicks is on the box, beef will be selected and other topipings will be unselected if beef is currently not selected.
+        //If a mouse clicks is on the box, beef will be selected and other toppings will be unselected if beef is currently not selected.
         //If a mouse click is on the box, beef will be unselected if it is currently selected.
         if (beefBox.bounds.Contains(mousePos) && Mouse.current.leftButton.wasReleasedThisFrame && !uI.previewActive)
         {
@@ -83,7 +83,7 @@ public class Topping : MonoBehaviour
         }
 
         //Onion box
-        //If a mouse clicks is on the box, onion will be selected and other topipings will be unselected if onion is currently not selected.
+        //If a mouse clicks is on the box, onion will be selected and other toppings will be unselected if onion is currently not selected.
         //If a mouse click is on the box, onion will be unselected if it is currently selected.
         if (onionBox.bounds.Contains(mousePos) && Mouse.current.leftButton.wasReleasedThisFrame && !uI.previewActive)
         {
@@ -101,8 +101,8 @@ public class Topping : MonoBehaviour
         }
 
 //Logic for color of box based on selection.
-
-        //If pepperoni is currently selected, the box will be green, otherwise, it is white.
+        //If pepperoni is currently selected, the box will be green.
+        //Otherwise, it is white.
         if (peppSelected)
         {
             peppBox.color = Color.green;
@@ -112,7 +112,8 @@ public class Topping : MonoBehaviour
             peppBox.color = new Color(255, 255, 255, 255);
         }
 
-        //If beef is currently selected, the box will be green, otherwise, it is white
+        //If beef is currently selected, the box will be green.
+        //Otherwise, it is white.
         if (beefSelected)
         {
             beefBox.color = Color.green;
@@ -122,7 +123,8 @@ public class Topping : MonoBehaviour
             beefBox.color = new Color(255, 255, 255, 255);
         }
 
-        //If onion is currently selected, the box will be green, otherwise, it is white.
+        //If onion is currently selected, the box will be green.
+        //Otherwise, it is white.
         if (onionSelected)
         {
             onionBox.color = Color.green;
@@ -168,7 +170,7 @@ public class Topping : MonoBehaviour
 
     }
     public void Sell()
-        //If the 'Sell' button is pressed, if oven cycle is compelte, all toppings will be destroyed.
+        //If the 'Sell' button is pressed and the oven cycle is complete, all toppings will be destroyed.
     {
         if (pizza.ovenComplete2)
         {
