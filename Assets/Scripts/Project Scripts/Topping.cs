@@ -8,6 +8,7 @@ public class Topping : MonoBehaviour
     public GameObject beefPrefab;
     public GameObject onionPrefab;
     public GameObject topping;
+    public GameObject PizzaBase;
 
     public SpriteRenderer peppBox;
     public SpriteRenderer beefBox;
@@ -24,7 +25,7 @@ public class Topping : MonoBehaviour
 
     public List<GameObject> toppings;
 
-    Vector3 size;
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -119,21 +120,21 @@ public class Topping : MonoBehaviour
 
         if (peppSelected && pizzaRend.bounds.Contains(mousePos) && Mouse.current.leftButton.wasReleasedThisFrame && !uI.previewActive)
         {
-            topping = Instantiate(peppPrefab, mousePos, Quaternion.identity, gameObject.transform);
+            topping = Instantiate(peppPrefab, mousePos, Quaternion.identity, PizzaBase.transform);
             toppings.Add(topping);
         }
 
 
         if (beefSelected && pizzaRend.bounds.Contains(mousePos) && Mouse.current.leftButton.wasReleasedThisFrame && !uI.previewActive)
         {
-            topping = Instantiate(beefPrefab, mousePos, Quaternion.identity, gameObject.transform);
+            topping = Instantiate(beefPrefab, mousePos, Quaternion.identity, PizzaBase.transform);
             toppings.Add(topping);
         }
 
 
         if (onionSelected && pizzaRend.bounds.Contains(mousePos) && Mouse.current.leftButton.wasReleasedThisFrame && !uI.previewActive)
         {
-            topping = Instantiate(onionPrefab, mousePos, Quaternion.identity, gameObject.transform);
+            topping = Instantiate(onionPrefab, mousePos, Quaternion.identity, PizzaBase.transform);
             toppings.Add(topping);
         }
 

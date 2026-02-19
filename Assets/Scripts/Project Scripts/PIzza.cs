@@ -1,26 +1,14 @@
 ﻿using Microsoft.Unity.VisualStudio.Editor;
+using NUnit.Framework.Constraints;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Build;
+using UnityEditor.Rendering.Universal.ShaderGUI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.WSA;
-
-
-//● If the mouse is dragged within the bounds of the pizza and a topping is not currently
-//selected.
-//○ The pizza moves to the position of the mouse.
-//● If pizza enters the oven cycle:
-//○ The pizza will lerp into the oven over a period of 1 second.
-//○ Then, the pizza will gradually move from left to right across the position of the
-//oven over a period of 15 seconds using a lerp.
-//○ Then, a ding sound will play and the sell button will be enabled.
-//● If the pizza is reset:
-//○ The toppings are destroyed.
-//○ The size is set to 2 (reset).
-//○ The position is reset to the left side
 
 public class Pizza : MonoBehaviour
 {
@@ -28,10 +16,14 @@ public class Pizza : MonoBehaviour
     public Vector3 location;
     public Camera main;
     public SpriteRenderer oven;
+    public SpriteRenderer pizzaRend;
     public bool ovenActive = false;
     public bool ovenComplete = false;
     public float ovenTimer = 0;
     public Vector3 spawnPos;
+    public SpriteRenderer pizzaCheese;
+
+    public bool textureChange = false;
 
     Vector3 startPos = new Vector3(-1.8f, -1.8f, 0);
     Vector3 endPos = new Vector3(6.85f, -1.8f, 0);
@@ -52,7 +44,6 @@ public class Pizza : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SpriteRenderer pizzaRend = GetComponent<SpriteRenderer>();
         mousePos = main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         mousePos.z = 0;
 
@@ -72,14 +63,37 @@ public class Pizza : MonoBehaviour
         if(ovenActive)
         {
             ovenTimer += 1 * Time.deltaTime;
-            location = Vector2.Lerp(startPos, endPos, ovenTimer/3);
+            location = Vector2.Lerp(startPos, endPos, ovenTimer/10);
         }
 
-        if(ovenTimer > 3)
+        if(ovenTimer > 5)
         {
+            textureChange = true;
+
+        }
+
+        if (textureChange)
+        {
+            Color cheese = pizzaCheese.color;
+            cheese.a = 1f;
+            pizzaCheese.color = cheese;
+        }
+        else
+        {
+            Color cheese = pizzaCheese.color;
+            cheese.a = 0f;
+            pizzaCheese.color = cheese;
+
+        }
+
+        if (ovenTimer > 10)
+        {
+
             ovenActive = false;
             ovenTimer = 0;
             ovenComplete = true;
+
+
         }
 
         transform.position = location;
