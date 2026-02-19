@@ -9,6 +9,8 @@ public class Topping : MonoBehaviour
     public GameObject onionPrefab;
     public GameObject topping;
     public GameObject PizzaBase;
+    public Pizza pizza;
+
 
     public SpriteRenderer peppBox;
     public SpriteRenderer beefBox;
@@ -42,7 +44,12 @@ public class Topping : MonoBehaviour
         mousePos = main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         mousePos.z = 0;
 
-        //if the pepporini box is clicked...
+
+//Logic for topping box selection:
+
+        //Pepperoni box
+        //If a mouse clicks is on the box, pepperoni will be selected and other topipings will be unselected if pepperoni is currently not selected.
+        //If a mouse click is on the box, pepporini will be unselected if it is currently selected.
         if (peppBox.bounds.Contains(mousePos) && Mouse.current.leftButton.wasReleasedThisFrame && !uI.previewActive)
         {
             if (peppSelected == true)
@@ -57,6 +64,9 @@ public class Topping : MonoBehaviour
             }
         }
 
+        //Beef box
+        //If a mouse clicks is on the box, beef will be selected and other topipings will be unselected if beef is currently not selected.
+        //If a mouse click is on the box, beef will be unselected if it is currently selected.
         if (beefBox.bounds.Contains(mousePos) && Mouse.current.leftButton.wasReleasedThisFrame && !uI.previewActive)
         {
             if (beefSelected == true)
@@ -72,6 +82,9 @@ public class Topping : MonoBehaviour
             }
         }
 
+        //Onion box
+        //If a mouse clicks is on the box, onion will be selected and other topipings will be unselected if onion is currently not selected.
+        //If a mouse click is on the box, onion will be unselected if it is currently selected.
         if (onionBox.bounds.Contains(mousePos) && Mouse.current.leftButton.wasReleasedThisFrame && !uI.previewActive)
         {
             if (onionSelected == true)
@@ -87,51 +100,54 @@ public class Topping : MonoBehaviour
             }
         }
 
+//Logic for color of box based on selection.
+
+        //If pepperoni is currently selected, the box will be green, otherwise, it is white.
         if (peppSelected)
         {
             peppBox.color = Color.green;
         }
         else
         {
-            peppBox.color = new Color(135, 135, 135, 255);
+            peppBox.color = new Color(255, 255, 255, 255);
         }
 
-
+        //If beef is currently selected, the box will be green, otherwise, it is white
         if (beefSelected)
         {
             beefBox.color = Color.green;
         }
         else
         {
-            beefBox.color = new Color(135, 135, 135, 255);
+            beefBox.color = new Color(255, 255, 255, 255);
         }
 
-
+        //If onion is currently selected, the box will be green, otherwise, it is white.
         if (onionSelected)
         {
             onionBox.color = Color.green;
         }
         else
         {
-            onionBox.color = new Color(135, 135, 135, 255);
+            onionBox.color = new Color(255, 255, 255, 255);
         }
 
-
-
+//Logic for spawning toppings on the pizza sprite.
+        //If pepperoni is currently selected and the mouse is clicked on the pizza, pepperoni is instantiated and added to the 'toppings' list.
         if (peppSelected && pizzaRend.bounds.Contains(mousePos) && Mouse.current.leftButton.wasReleasedThisFrame && !uI.previewActive)
         {
             topping = Instantiate(peppPrefab, mousePos, Quaternion.identity, PizzaBase.transform);
             toppings.Add(topping);
         }
 
-
+        //If beef is currently selected and the mouse is clicked on the pizza, beef is instantiated and added to the 'toppings' list.
         if (beefSelected && pizzaRend.bounds.Contains(mousePos) && Mouse.current.leftButton.wasReleasedThisFrame && !uI.previewActive)
         {
             topping = Instantiate(beefPrefab, mousePos, Quaternion.identity, PizzaBase.transform);
             toppings.Add(topping);
         }
 
-
+        //If onion is currently selected and the mouse is clicked on the pizza, onion is instantiated and added to the 'toppings' list.
         if (onionSelected && pizzaRend.bounds.Contains(mousePos) && Mouse.current.leftButton.wasReleasedThisFrame && !uI.previewActive)
         {
             topping = Instantiate(onionPrefab, mousePos, Quaternion.identity, PizzaBase.transform);
@@ -139,7 +155,7 @@ public class Topping : MonoBehaviour
         }
 
 
-        //true if a topping is currently selected, false otherwise.
+        //If pepperoni, beef, or onion is currently selected, a topping is selected.
         if(peppSelected || beefSelected || onionSelected)
         {
             toppingSelected = true;
@@ -152,11 +168,17 @@ public class Topping : MonoBehaviour
 
     }
     public void Sell()
+        //If the 'Sell' button is pressed, if oven cycle is compelte, all toppings will be destroyed.
     {
-        for (int i = toppings.Count - 1; i >= 0; i--)
+        if (pizza.ovenComplete2)
         {
-            Destroy(toppings[i]);
+            for (int i = toppings.Count - 1; i >= 0; i--)
+            {
+                Destroy(toppings[i]);
+                pizza.ovenComplete2 = false;
+            }
         }
+           
 
     }
 }

@@ -19,6 +19,7 @@ public class Pizza : MonoBehaviour
     public SpriteRenderer pizzaRend;
     public bool ovenActive = false;
     public bool ovenComplete = false;
+    public bool ovenComplete2 = false;
     public float ovenTimer = 0;
     public Vector3 spawnPos;
     public SpriteRenderer pizzaCheese;
@@ -47,7 +48,8 @@ public class Pizza : MonoBehaviour
         mousePos = main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         mousePos.z = 0;
 
-        //If the mouse is currently pressed on the pizza, pick it up (maintains mouse position).
+        //If the mouse is currently pressed on the pizz, pick it up (maintains mouse position).
+        //Only allowed if a topping is not currently selected, and the oven is not currently active.
         if (Mouse.current.leftButton.isPressed && pizzaRend.bounds.Contains(mousePos) &&  !ovenActive && !topping.toppingSelected && !uI.previewActive)
         {
             location = mousePos;
@@ -60,24 +62,29 @@ public class Pizza : MonoBehaviour
             ovenActive = true;
         }
 
+        //If the oven is currently active, a timer runs, and the pizza lerps according to the value of the timer.
         if(ovenActive)
         {
             ovenTimer += 1 * Time.deltaTime;
             location = Vector2.Lerp(startPos, endPos, ovenTimer/10);
         }
 
+        //If the oven has been active for more than 5 seconds, the texutre of the pizza changes.
         if(ovenTimer > 5)
         {
             textureChange = true;
 
         }
 
+        //If the texture is called to change, the opacity of the 'Cooked Pizza' sprite is increased to max.
         if (textureChange)
         {
             Color cheese = pizzaCheese.color;
             cheese.a = 1f;
             pizzaCheese.color = cheese;
         }
+
+        //Otherwise, the opacity of the 'Cooked Pizza' sprite is set to 0.
         else
         {
             Color cheese = pizzaCheese.color;
@@ -85,13 +92,14 @@ public class Pizza : MonoBehaviour
             pizzaCheese.color = cheese;
 
         }
-
+        //The ovenTimer stops after 10 seconds, and signals completion.
         if (ovenTimer > 10)
         {
 
             ovenActive = false;
             ovenTimer = 0;
             ovenComplete = true;
+            ovenComplete2 = true;
 
 
         }

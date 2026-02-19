@@ -9,6 +9,7 @@ public class Prefab : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //Upon spawning, the rotation of the topping sprite will be set to random.
         randomRotate.z = Random.Range(0, 360);
         transform.eulerAngles = randomRotate;
 

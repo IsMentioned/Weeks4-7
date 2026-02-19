@@ -15,6 +15,7 @@ public class OvenSlider : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       //The value of the oven slider will be equal to the value of the oven timer.
         ovenSlider.value = pizza.ovenTimer;
     }
 }
