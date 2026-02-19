@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class Sell : MonoBehaviour
+public class PizzaBase : MonoBehaviour
 {
-    Vector3 location;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -13,10 +12,5 @@ public class Sell : MonoBehaviour
     void Update()
     {
         
-    }
-
-    public void Button()
-    {
-        location = 
     }
 }

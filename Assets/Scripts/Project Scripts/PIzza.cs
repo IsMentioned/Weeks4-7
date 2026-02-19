@@ -1,4 +1,5 @@
 ﻿using Microsoft.Unity.VisualStudio.Editor;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Build;
 using UnityEngine;
@@ -28,13 +29,17 @@ public class Pizza : MonoBehaviour
     public Camera main;
     public SpriteRenderer oven;
     public bool ovenActive = false;
-    float ovenTimer = 0;
+    public bool ovenComplete = false;
+    public float ovenTimer = 0;
     public Vector3 spawnPos;
 
     Vector3 startPos = new Vector3(-1.8f, -1.8f, 0);
     Vector3 endPos = new Vector3(6.85f, -1.8f, 0);
 
-    Vector3 mousePos;
+    public Vector3 mousePos;
+
+    public Topping topping;
+    public UI uI;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -52,9 +57,8 @@ public class Pizza : MonoBehaviour
         mousePos.z = 0;
 
         //If the mouse is currently pressed on the pizza, pick it up (maintains mouse position).
-        if (Mouse.current.leftButton.isPressed && pizzaRend.bounds.Contains(mousePos) &&  !ovenActive)
+        if (Mouse.current.leftButton.isPressed && pizzaRend.bounds.Contains(mousePos) &&  !ovenActive && !topping.toppingSelected && !uI.previewActive)
         {
-            Debug.Log("active");
             location = mousePos;
         }
 
@@ -71,11 +75,14 @@ public class Pizza : MonoBehaviour
             location = Vector2.Lerp(startPos, endPos, ovenTimer/3);
         }
 
-        transform.position = location;
+        if(ovenTimer > 3)
+        {
+            ovenActive = false;
+            ovenTimer = 0;
+            ovenComplete = true;
+        }
 
-    }
-    public void ConfirmSize()
-    {
+        transform.position = location;
 
     }
 }
